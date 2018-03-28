@@ -7,21 +7,55 @@
     <title>Psychic Game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Fugaz+One" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 
 </head>
 
 <body>
 
-        <div id="game">
-            <p>Guess what Letter I'm thinking of</p>
+
+    <div class="container">
+
+        <div class="page-header">
+
+            <h1>Guess What Letter I'm Thinking
+                <p>
+                    <small>Using letters A-Z, guess which letter I'm thinking of</small>
+                </p>
+            </h1>
+
+        </div>
+
+        <div class="mainContent">
+
+
+
+            <p>Guesses left:
+                <span id="num-guess-left"></span>
+            </p>
+            <p>Letters used:
+                <span id="letters-used"></span>
+            </p>
+            <p>Wins:
+                <span id="winner"></span>
+            </p>
+            <p>Losses:
+                <span id="loser"></span>
+            </p>
+
         </div>
 
 
-        
+    </div>
+
+
+
+
+
 
     <script src="assets/javascript/game.js"></script>
-
 </body>
 
 </html>

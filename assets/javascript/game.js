@@ -28,20 +28,26 @@ let letterChoices = [
   "z"
 ];
 
-// Variables 
+// globals
 
-let wins = 0;
-let losses = 0;
-let guessCount = 7;
+let winScore = 0;
+let loseScore = 0;
+let guessRemaining = 7;
+let lettersGuessed = [];
 
 // Determine which key user presses
 // Computer randomly chooses letter
 // if user chooses correct letter, then win score goes up 1, game resets
 // if user does not choose correct letter in x-amount guesses, losses goes up 1
 
+// resets game after a win or loss
+
 function reset() {
-  guessCount = 7;
+  
+  guessRemaining = 7;
 }
+
+// track the key pressed then reset after win/loss
 
 document.onkeyup = function(event) {
   let userGuess = event.key;
@@ -49,58 +55,29 @@ document.onkeyup = function(event) {
   let computerGuess =
     letterChoices[Math.floor(Math.random() * letterChoices.length)];
 
-  if (
-    userGuess === "a" ||
-    userGuess === "b" ||
-    userGuess === "c" ||
-    userGuess === "d" ||
-    userGuess === "e" ||
-    userGuess === "f" ||
-    userGuess === "g" ||
-    userGuess === "h" ||
-    userGuess === "i" ||
-    userGuess === "j" ||
-    userGuess === "k" ||
-    userGuess === "l" ||
-    userGuess === "m" ||
-    userGuess === "n" ||
-    userGuess === "o" ||
-    userGuess === "p" ||
-    userGuess === "q" ||
-    userGuess === "r" ||
-    userGuess === "s" ||
-    userGuess === "t" ||
-    userGuess === "u" ||
-    userGuess === "v" ||
-    userGuess === "w" ||
-    userGuess === "x" ||
-    userGuess === "y" ||
-    userGuess === "z"
-  ) {
-    if (userGuess === computerGuess) {
-      wins++;
-      reset();
-    } else 
-    guessCount--;
-
-    if (guessCount === 0) {
-      losses++;
-      reset();
-    }
+  if (userGuess === computerGuess) {
+    winScore++;
+    reset();
   }
 
-  let html =
-    "<p>Guess What Letter I'm Thinking" +
-    "</p>" +
-    "<p>Guesses so far: " +
-    guessCount +
-    "</p>" +
-    "<p>Wins: " +
-    wins +
-    "</p>" +
-    "<p>Losses: " +
-    losses +
-    "</p>";
+  if (userGuess != computerGuess) {
 
-  document.querySelector("#game").innerHTML = html;
+    // need to print multiple wrong letters and disable wrong letter
+    lettersGuessed.push(userGuess);
+    guessRemaining--;
+    // console.log("this letter isn't right" + " " + userGuess);
+    // console.log(guessRemaining);
+    
+  } else if (guessRemaining === 0) {
+    lettersGuessed = [];
+    loseScore++;
+    reset();
+  }
+
+  // updates stats
+
+  document.getElementById("num-guess-left").textContent = guessRemaining;
+  document.getElementById("letters-used").textContent = lettersGuessed;
+  document.getElementById("winner").textContent = winScore;
+  document.getElementById("loser").textContent = loseScore;
 };
