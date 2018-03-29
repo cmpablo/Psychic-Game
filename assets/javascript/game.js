@@ -1,4 +1,4 @@
-// Create an array of letter choices
+// array of letter choices
 let letterChoices = [
   "a",
   "b",
@@ -33,51 +33,67 @@ let letterChoices = [
 let winScore = 0;
 let loseScore = 0;
 let guessRemaining = 7;
-let lettersGuessed = [];
+let guessedLetters = [];
 
-// Determine which key user presses
-// Computer randomly chooses letter
-// if user chooses correct letter, then win score goes up 1, game resets
-// if user does not choose correct letter in x-amount guesses, losses goes up 1
+// functions
 
-// resets game after a win or loss
-
-function reset() {
-  
-  guessRemaining = 7;
+function resetComputerGuess() {
+  computerGuess =
+    letterChoices[Math.floor(Math.random() * letterChoices.length)];
 }
 
-// track the key pressed then reset after win/loss
+function resetGuessRemaining() {
+  document.getElementById("num-guess-left").textContent = guessRemaining;
+}
+
+function resetGuessedLetters() {
+  document.getElementById("letters-used").textContent = guessedLetters.join(
+    ", "
+  );
+}
+
+function resetGame() {
+  guessRemaining = 7;
+  guessedLetters = [];
+
+  resetComputerGuess();
+  resetGuessRemaining();
+  resetGuessedLetters();
+}
+
+resetComputerGuess();
+resetGuessRemaining();
+resetGuessedLetters();
+
+// gameplay
 
 document.onkeyup = function(event) {
+  
   let userGuess = event.key;
 
   let computerGuess =
     letterChoices[Math.floor(Math.random() * letterChoices.length)];
 
+
   if (userGuess === computerGuess) {
     winScore++;
-    reset();
+    resetGame();
   }
 
-  if (userGuess != computerGuess) {
-
-    // need to print multiple wrong letters and disable wrong letter
-    lettersGuessed.push(userGuess);
+  if (guessRemaining > 0) {
+    guessedLetters.push(userGuess);
     guessRemaining--;
-    // console.log("this letter isn't right" + " " + userGuess);
-    // console.log(guessRemaining);
-    
-  } else if (guessRemaining === 0) {
-    lettersGuessed = [];
+  } else if (guessRemaining == 0) {
     loseScore++;
-    reset();
+    resetGame();
   }
 
   // updates stats
 
   document.getElementById("num-guess-left").textContent = guessRemaining;
-  document.getElementById("letters-used").textContent = lettersGuessed;
+  document.getElementById("letters-used").textContent = guessedLetters.join(
+    ", "
+  );
   document.getElementById("winner").textContent = winScore;
   document.getElementById("loser").textContent = loseScore;
 };
