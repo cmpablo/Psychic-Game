@@ -68,7 +68,6 @@ resetGuessedLetters();
 // gameplay
 
 document.onkeyup = function(event) {
-  
   let userGuess = event.key;
 
   let computerGuess =
