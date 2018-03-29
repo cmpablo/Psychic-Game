@@ -28,7 +28,7 @@ let letterChoices = [
   "z"
 ];
 
-// globals
+// global variables
 
 let winScore = 0;
 let loseScore = 0;
@@ -37,15 +37,18 @@ let guessedLetters = [];
 
 // functions
 
+// resets computer guess
 function resetComputerGuess() {
   computerGuess =
     letterChoices[Math.floor(Math.random() * letterChoices.length)];
 }
 
+// resets number of guesses remaining to 7
 function resetGuessRemaining() {
   document.getElementById("num-guess-left").textContent = guessRemaining;
 }
 
+// resets letter guessed so far
 function resetGuessedLetters() {
   document.getElementById("letters-used").textContent = guessedLetters.join(
     ", "
@@ -61,6 +64,7 @@ function resetGame() {
   resetGuessedLetters();
 }
 
+// calling functions to run at very beginning of game
 resetComputerGuess();
 resetGuessRemaining();
 resetGuessedLetters();
@@ -73,12 +77,13 @@ document.onkeyup = function(event) {
   let computerGuess =
     letterChoices[Math.floor(Math.random() * letterChoices.length)];
 
-
+  // user guesses correct letter - win score goes up by 1
   if (userGuess === computerGuess) {
     winScore++;
     resetGame();
   }
 
+  // user guesses incorrectly and/or runs out of guesses - lose score goes up by 1
   if (guessRemaining > 0) {
     guessedLetters.push(userGuess);
     guessRemaining--;
